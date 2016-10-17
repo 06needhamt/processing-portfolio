@@ -11,7 +11,7 @@ boolean shoot;
 boolean lose;
 float hits;
 float shots;
-
+float[][] colourMatrix;
 
 
 void setup()
@@ -20,7 +20,12 @@ void setup()
   size(500,500);
   asteroids = new ArrayList();
   noCursor();
-
+  colourMatrix = new float[][] {
+    new float[]{255.0f, 255.0f, 255.0f, 255.0f},
+    new float[]{255.0f, 0.0f, 0.0f, 255.0f},
+    new float[]{0.0f, 255.0f, 0.0f, 255.0f},
+    new float[]{0.0f, 0.0f, 255.0f, 255.0f}
+  };
 }
 
 void draw()
@@ -91,10 +96,16 @@ class Asteroid
     ellipse(x,y,r,r);
     float hbar = health/maxHealth * 20;
     println(health + "" + maxHealth);
-    fill(255,0,0);
+    switch(health){
+      case 1:
+        fill(colourMatrix[1]);
+        break;
+      default:
+        fill(colourMatrix[0]);
+        break;
+    }
     textFont(font, 15);
     text(health, x - 2, y + 5);
-  }
 }
 void spawn()
 {
